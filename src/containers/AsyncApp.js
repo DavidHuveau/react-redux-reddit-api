@@ -86,15 +86,9 @@ const mapStateToProps = state => {
   };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchPosts: selectedSubreddit => {
-      dispatch(fetchPostsIfNeeded(selectedSubreddit));
-    },
-    select: selectedSubreddit => {
-      dispatch(selectSubreddit(selectedSubreddit));
-    }
-  };
+const mapDispatchToProps = {
+  fetchPosts: fetchPostsIfNeeded,
+  select: selectSubreddit
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AsyncApp);
