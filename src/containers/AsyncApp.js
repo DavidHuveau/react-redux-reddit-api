@@ -17,11 +17,13 @@ class AsyncApp extends Component {
   }
 
   componentDidMount() {
+    debugger
     const { dispatch, selectedSubreddit } = this.props;
     dispatch(fetchPostsIfNeeded(selectedSubreddit));
   }
 
   componentDidUpdate(prevProps) {
+    debugger
     if (this.props.selectedSubreddit !== prevProps.selectedSubreddit) {
       const { dispatch, selectedSubreddit } = this.props;
       dispatch(fetchPostsIfNeeded(selectedSubreddit));
@@ -35,7 +37,7 @@ class AsyncApp extends Component {
 
   handleRefreshClick(e) {
     e.preventDefault();
-
+debugger
     const { dispatch, selectedSubreddit } = this.props;
     dispatch(invalidateSubreddit(selectedSubreddit));
     dispatch(fetchPostsIfNeeded(selectedSubreddit));
@@ -81,6 +83,7 @@ AsyncApp.propTypes = {
 };
 
 const mapStateToProps = state => {
+  debugger
   const { selectedSubreddit, postsBySubreddit } = state;
   const {
     isFetching,
@@ -90,7 +93,6 @@ const mapStateToProps = state => {
       isFetching: true,
       items: []
     };
-
   return {
     selectedSubreddit,
     posts,
