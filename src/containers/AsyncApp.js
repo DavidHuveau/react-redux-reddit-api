@@ -64,8 +64,7 @@ AsyncApp.propTypes = {
   selectedSubreddit: PropTypes.string.isRequired,
   posts: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  lastUpdated: PropTypes.number,
-  dispatch: PropTypes.func.isRequired
+  lastUpdated: PropTypes.number
 };
 
 const mapStateToProps = state => {
@@ -74,7 +73,7 @@ const mapStateToProps = state => {
     isFetching,
     lastUpdated,
     items: posts
-  } = postsBySubreddit[selectedSubreddit] || {
+  } = postsBySubreddit || {
       isFetching: true,
       items: []
     };

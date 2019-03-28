@@ -19,7 +19,7 @@ const selectedSubreddit = (state = 'reactjs', action) => {
   }
 };
 
-const posts = (state = initialState, action) => {
+const postsBySubreddit = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_POSTS:
       return {
@@ -32,19 +32,6 @@ const posts = (state = initialState, action) => {
         isFetching: false,
         items: action.posts,
         lastUpdated: action.receivedAt
-      };
-    default:
-      return state;
-  }
-}
-
-const postsBySubreddit = (state = {}, action) => {
-  switch (action.type) {
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
-      return {
-        ...state,
-        [action.subreddit]: posts(state[action.subreddit], action)
       };
     default:
       return state;
