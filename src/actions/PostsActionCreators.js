@@ -27,12 +27,7 @@ const receivePosts = (subreddit, json) => {
   };
 }
 
-// Async Action Creators
-// When an action creator returns a function, that function will get executed by the Redux Thunk middleware
 const fetchPosts = subreddit => {
-  // Thunk middleware knows how to handle functions.
-  // It passes the dispatch method as an argument to the function,
-  // thus making it able to dispatch actions itself.
   return dispatch => {
     // First dispatch: the app state is updated to inform that the API call is starting.
     dispatch(requestPosts(subreddit))
@@ -53,9 +48,13 @@ const shouldFetchPosts = (state, subreddit) => {
   }
 }
 
+// Async Action Creators
+// When an action creator returns a function, that function will get executed by the Redux Thunk middleware
 export const fetchPostsIfNeeded = subreddit => {
-  // Note that the function also receives getState()
-  // which lets you choose what to dispatch next.
+  // Thunk middleware knows how to handle functions.
+  // It passes the dispatch method as an argument to the function,
+  // thus making it able to dispatch actions itself.
+  // Note that the function also receives getState() with the current state
   return (dispatch, getState) => {
     if (shouldFetchPosts(getState(), subreddit)) {
       return dispatch(fetchPosts(subreddit));

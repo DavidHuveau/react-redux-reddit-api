@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 export default class Picker extends Component {
@@ -6,8 +6,8 @@ export default class Picker extends Component {
     const { value, onChange, options } = this.props;
 
     return (
-      <span>
-        <h1>{value}</h1>
+      <Fragment>
+        <p>{value}</p>
         <select onChange={e => onChange(e.target.value)} value={value}>
           {options.map(option => (
             <option value={option} key={option}>
@@ -15,7 +15,7 @@ export default class Picker extends Component {
             </option>
           ))}
         </select>
-      </span>
+      </Fragment>
     )
   }
 }

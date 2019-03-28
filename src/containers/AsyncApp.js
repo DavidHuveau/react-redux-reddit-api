@@ -69,7 +69,6 @@ AsyncApp.propTypes = {
 };
 
 const mapStateToProps = state => {
-  debugger
   const { selectedSubreddit, postsBySubreddit } = state;
   const {
     isFetching,
