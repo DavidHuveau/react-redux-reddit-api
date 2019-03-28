@@ -17,30 +17,29 @@ class AsyncApp extends Component {
   }
 
   componentDidMount() {
-    debugger
-    const { dispatch, selectedSubreddit } = this.props;
-    dispatch(fetchPostsIfNeeded(selectedSubreddit));
+    const { fetchPosts, selectedSubreddit} = this.props;
+    fetchPosts(selectedSubreddit);
   }
 
-  componentDidUpdate(prevProps) {
-    debugger
-    if (this.props.selectedSubreddit !== prevProps.selectedSubreddit) {
-      const { dispatch, selectedSubreddit } = this.props;
-      dispatch(fetchPostsIfNeeded(selectedSubreddit));
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   debugger
+  //   if (this.props.selectedSubreddit !== prevProps.selectedSubreddit) {
+  //     const { dispatch, selectedSubreddit } = this.props;
+  //     dispatch(fetchPostsIfNeeded(selectedSubreddit));
+  //   }
+  // }
 
   handleChange(nextSubreddit) {
-    this.props.dispatch(selectSubreddit(nextSubreddit));
-    this.props.dispatch(fetchPostsIfNeeded(nextSubreddit));
+    const { select, fetchPosts } = this.props;
+    select(nextSubreddit);
+    fetchPosts(nextSubreddit);
   }
 
   handleRefreshClick(e) {
     e.preventDefault();
-debugger
-    const { dispatch, selectedSubreddit } = this.props;
-    dispatch(invalidateSubreddit(selectedSubreddit));
-    dispatch(fetchPostsIfNeeded(selectedSubreddit));
+    const { invalid, fetchPosts, selectedSubreddit } = this.props;
+    invalid(selectedSubreddit);
+    fetchPosts(selectedSubreddit);
   }
 
   render() {
@@ -101,4 +100,18 @@ const mapStateToProps = state => {
   };
 }
 
-export default connect(mapStateToProps)(AsyncApp);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchPosts: selectedSubreddit => {
+      dispatch(fetchPostsIfNeeded(selectedSubreddit));
+    },
+    select: selectedSubreddit => {
+      dispatch(selectSubreddit(selectedSubreddit));
+    },
+    invalid: selectedSubreddit => {
+      dispatch(invalidateSubreddit(selectedSubreddit));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AsyncApp);
