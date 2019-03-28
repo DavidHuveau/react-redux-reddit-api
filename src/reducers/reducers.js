@@ -1,18 +1,15 @@
 import { combineReducers } from 'redux';
-import {
-  SELECT_SUBREDDIT,
-  REQUEST_POSTS,
-  RECEIVE_POSTS
-} from '../actions/PostsActionCreators';
+import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
   isFetching: false,
-  items: []
+  items: [],
+  error: null
 };
 
 const selectedSubreddit = (state = 'reactjs', action) => {
   switch (action.type) {
-    case SELECT_SUBREDDIT:
+    case ActionTypes.SELECT_SUBREDDIT:
       return action.subreddit;
     default:
       return state;
@@ -21,12 +18,12 @@ const selectedSubreddit = (state = 'reactjs', action) => {
 
 const postsBySubreddit = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_POSTS:
+    case ActionTypes.REQUEST_POSTS:
       return {
         ...state,
         isFetching: true
       };
-    case RECEIVE_POSTS:
+    case ActionTypes.RECEIVE_POSTS:
       return {
         ...state,
         isFetching: false,

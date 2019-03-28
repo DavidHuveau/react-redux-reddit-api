@@ -1,26 +1,23 @@
 import axios from 'axios';
-
-export const REQUEST_POSTS = 'REQUEST_POSTS';
-export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
+import ActionTypes from '../actions/ActionTypes';
 
 export const selectSubreddit = subreddit => {
   return {
-    type: SELECT_SUBREDDIT,
+    type: ActionTypes.SELECT_SUBREDDIT,
     subreddit
   };
 }
 
 const requestPosts = subreddit => {
   return {
-    type: REQUEST_POSTS,
+    type: ActionTypes.REQUEST_POSTS,
     subreddit
   };
 }
 
 const receivePosts = (subreddit, json) => {
   return {
-    type: RECEIVE_POSTS,
+    type: ActionTypes.RECEIVE_POSTS,
     subreddit,
     posts: json.data.children.map(child => child.data),
     receivedAt: Date.now()
@@ -35,6 +32,10 @@ const fetchPosts = subreddit => {
       .then(response => {
         // Here, we update the app state with the results of the API call.
         dispatch(receivePosts(subreddit, response.data))
+        // throw new Error('NOT!');
+      })
+      .catch(error => {
+        // error.message
       });
   };
 }
