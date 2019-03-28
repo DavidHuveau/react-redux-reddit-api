@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   selectSubreddit,
-  fetchPostsIfNeeded,
-  invalidateSubreddit
+  fetchPostsIfNeeded
 } from '../actions/PostsActionCreators';
 import Picker from '../components/Picker';
 import Posts from '../components/Posts';
@@ -13,7 +12,6 @@ class AsyncApp extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleRefreshClick = this.handleRefreshClick.bind(this);
   }
 
   componentDidMount() {
@@ -35,13 +33,6 @@ class AsyncApp extends Component {
     fetchPosts(nextSubreddit);
   }
 
-  handleRefreshClick(e) {
-    e.preventDefault();
-    const { invalid, fetchPosts, selectedSubreddit } = this.props;
-    invalid(selectedSubreddit);
-    fetchPosts(selectedSubreddit);
-  }
-
   render() {
     const { selectedSubreddit, posts, isFetching, lastUpdated } = this.props;
     return (
@@ -57,10 +48,6 @@ class AsyncApp extends Component {
               Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
               {' '}
             </span>}
-          {!isFetching &&
-            <a href="#" onClick={this.handleRefreshClick}>
-              Refresh
-            </a>}
         </p>
         {isFetching && posts.length === 0 && <h2>Loading...</h2>}
         {!isFetching && posts.length === 0 && <h2>Empty.</h2>}
@@ -107,9 +94,6 @@ const mapDispatchToProps = dispatch => {
     },
     select: selectedSubreddit => {
       dispatch(selectSubreddit(selectedSubreddit));
-    },
-    invalid: selectedSubreddit => {
-      dispatch(invalidateSubreddit(selectedSubreddit));
     }
   };
 };

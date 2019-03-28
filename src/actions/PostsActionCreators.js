@@ -3,18 +3,10 @@ import axios from 'axios';
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
-export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT';
 
 export const selectSubreddit = subreddit => {
   return {
     type: SELECT_SUBREDDIT,
-    subreddit
-  };
-}
-
-export const invalidateSubreddit = subreddit => {
-  return {
-    type: INVALIDATE_SUBREDDIT,
     subreddit
   };
 }
@@ -58,8 +50,6 @@ const shouldFetchPosts = (state, subreddit) => {
     return true;
   } else if (posts.isFetching) {
     return false;
-  } else {
-    return posts.didInvalidate;
   }
 }
 

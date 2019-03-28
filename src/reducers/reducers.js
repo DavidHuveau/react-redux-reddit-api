@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
 import {
   SELECT_SUBREDDIT,
-  INVALIDATE_SUBREDDIT,
   REQUEST_POSTS,
   RECEIVE_POSTS
 } from '../actions/PostsActionCreators';
 
 const initialState = {
   isFetching: false,
-  didInvalidate: false,
   items: []
 };
 
@@ -23,22 +21,15 @@ const selectedSubreddit = (state = 'reactjs', action) => {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
-      return {
-        ...state,
-        didInvalidate: true
-      };
     case REQUEST_POSTS:
       return {
         ...state,
-        isFetching: true,
-        didInvalidate: false
+        isFetching: true
       };
     case RECEIVE_POSTS:
       return {
         ...state,
         isFetching: false,
-        didInvalidate: false,
         items: action.posts,
         lastUpdated: action.receivedAt
       };
@@ -49,7 +40,6 @@ const posts = (state = initialState, action) => {
 
 const postsBySubreddit = (state = {}, action) => {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
     case RECEIVE_POSTS:
     case REQUEST_POSTS:
       return {
