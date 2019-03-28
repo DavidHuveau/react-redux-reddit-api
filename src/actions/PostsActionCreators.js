@@ -40,12 +40,10 @@ const fetchPosts = subreddit => {
 }
 
 const shouldFetchPosts = (state, subreddit) => {
-  const posts = state.postsBySubreddit[subreddit];
-  if (!posts) {
-    return true;
-  } else if (posts.isFetching) {
+  if (state.postsBySubreddit.isFetching)
     return false;
-  }
+  else
+    return true;
 }
 
 // Async Action Creators
