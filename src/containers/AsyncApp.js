@@ -69,19 +69,11 @@ AsyncApp.propTypes = {
 
 const mapStateToProps = state => {
   const { selectedSubreddit, postsBySubreddit } = state;
-  const {
-    isFetching,
-    lastUpdated,
-    items: posts
-  } = postsBySubreddit || {
-      isFetching: true,
-      items: []
-    };
   return {
     selectedSubreddit,
-    posts,
-    isFetching,
-    lastUpdated
+    posts: postsBySubreddit.items,
+    isFetching: postsBySubreddit.isFetching,
+    lastUpdated: postsBySubreddit.lastUpdated
   };
 }
 

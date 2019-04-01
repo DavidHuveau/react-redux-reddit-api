@@ -10,17 +10,25 @@ export const selectSubreddit = subreddit => {
 
 const requestPosts = subreddit => {
   return {
-    type: ActionTypes.REQUEST_POSTS,
+    type: ActionTypes.RECEIVE_POSTS_REQUEST,
     subreddit
   };
 }
 
 const receivePosts = (subreddit, json) => {
   return {
-    type: ActionTypes.RECEIVE_POSTS,
+    type: ActionTypes.RECEIVE_POSTS_SUCCESS,
     subreddit,
     posts: json.data.children.map(child => child.data),
     receivedAt: Date.now()
+  };
+}
+
+const errorPosts = (subreddit, error) => {
+  return {
+    type: ActionTypes.RECEIVE_POSTS_FAILURE,
+    subreddit,
+    error
   };
 }
 
@@ -35,12 +43,12 @@ const fetchPosts = subreddit => {
         // throw new Error('NOT!');
       })
       .catch(error => {
-        // error.message
+        dispatch(errorPosts(subreddit, error.message))
       });
   };
 }
 
-const shouldFetchPosts = (state, subreddit) => {
+const shouldFetchPosts = (state) => {
   if (state.postsBySubreddit.isFetching)
     return false;
   else
@@ -55,8 +63,7 @@ export const fetchPostsIfNeeded = subreddit => {
   // thus making it able to dispatch actions itself.
   // Note that the function also receives getState() with the current state
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), subreddit)) {
-      return dispatch(fetchPosts(subreddit));
-    }
+    if (shouldFetchPosts(getState()))
+      return dispatch(fetchPosts(subreddit))
   };
 }

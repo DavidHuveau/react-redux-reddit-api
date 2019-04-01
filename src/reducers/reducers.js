@@ -18,17 +18,26 @@ const selectedSubreddit = (state = 'reactjs', action) => {
 
 const postsBySubreddit = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.REQUEST_POSTS:
+    case ActionTypes.RECEIVE_POSTS_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: null
       };
-    case ActionTypes.RECEIVE_POSTS:
+    case ActionTypes.RECEIVE_POSTS_SUCCESS:
       return {
         ...state,
         isFetching: false,
         items: action.posts,
-        lastUpdated: action.receivedAt
+        lastUpdated: action.receivedAt,
+        error: null
+      };
+    case ActionTypes.RECEIVE_POSTS_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        items: [],
+        error: action.error
       };
     default:
       return state;
