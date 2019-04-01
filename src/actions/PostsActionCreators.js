@@ -1,13 +1,6 @@
 import axios from 'axios';
 import ActionTypes from '../actions/ActionTypes';
 
-export const selectSubreddit = subreddit => {
-  return {
-    type: ActionTypes.SELECT_SUBREDDIT,
-    subreddit
-  };
-}
-
 const requestPosts = subreddit => {
   return {
     type: ActionTypes.RECEIVE_POSTS_REQUEST,
@@ -57,7 +50,7 @@ const shouldFetchPosts = (state) => {
 
 // Async Action Creators
 // When an action creator returns a function, that function will get executed by the Redux Thunk middleware
-export const fetchPostsIfNeeded = subreddit => {
+const fetchPostsIfNeeded = subreddit => {
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
   // thus making it able to dispatch actions itself.
@@ -67,3 +60,5 @@ export const fetchPostsIfNeeded = subreddit => {
       return dispatch(fetchPosts(subreddit))
   };
 }
+
+export default fetchPostsIfNeeded;

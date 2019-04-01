@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
-import postsBySubreddit from './postsBySubreddit.reducer';
-import selectedSubreddit from './selectedSubreddit.reducer';
-
+import postsBySubreddit from './postsBySubredditReducer';
+import selectedSubreddit from './selectedSubredditReducer';
 
 const rootReducer = combineReducers({
   postsBySubreddit,
