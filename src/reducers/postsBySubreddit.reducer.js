@@ -1,19 +1,9 @@
-import { combineReducers } from 'redux';
 import ActionTypes from '../actions/ActionTypes';
 
 const initialState = {
   isFetching: false,
   items: [],
   error: null
-};
-
-const selectedSubreddit = (state = 'reactjs', action) => {
-  switch (action.type) {
-    case ActionTypes.SELECT_SUBREDDIT:
-      return action.subreddit;
-    default:
-      return state;
-  }
 };
 
 const postsBySubreddit = (state = initialState, action) => {
@@ -44,9 +34,4 @@ const postsBySubreddit = (state = initialState, action) => {
   }
 }
 
-const rootReducer = combineReducers({
-  postsBySubreddit,
-  selectedSubreddit
-});
-
-export default rootReducer;
+export default postsBySubreddit;
