@@ -1,5 +1,5 @@
 import keyMirror from 'keymirror';
-// TODO:
+// Samples:
 // fetchGuestCampaign
 // RECEIVE_GUEST_CAMPAIGN_REQUEST: null,
 // RECEIVE_GUEST_CAMPAIGN_SUCCESS: null,
@@ -22,6 +22,6 @@ export default keyMirror({
   RECEIVE_POSTS_REQUEST: null,
   RECEIVE_POSTS_SUCCESS: null,
   RECEIVE_POSTS_FAILURE: null,
-  
+
   SELECT_SUBREDDIT: null
 });

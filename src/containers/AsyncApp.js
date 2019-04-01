@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import fetchPostsIfNeeded from '../actions/PostsActionCreators';
+// import { fetchPostsIfNeeded } from '../actions/PostsActionCreators';
+import { fetchPostsWithRSAA } from '../actions/PostsActionCreators';
 import selectSubreddit from '../actions/SelectedSubredditActionCreators';
 import Picker from '../components/Picker';
 import Posts from '../components/Posts';
@@ -76,7 +77,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  fetchPosts: fetchPostsIfNeeded,
+  // fetchPosts: fetchPostsIfNeeded,
+  fetchPosts: fetchPostsWithRSAA,
   select: selectSubreddit
 };
 

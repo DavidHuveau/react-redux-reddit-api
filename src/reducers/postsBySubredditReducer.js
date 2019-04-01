@@ -18,7 +18,8 @@ const postsBySubreddit = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        items: action.posts,
+        // items: action.posts,
+        items: action.payload.data.children.map(child => child.data),
         lastUpdated: action.receivedAt,
         error: null
       };
